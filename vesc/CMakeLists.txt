@@ -1,0 +1,1 @@
+add_library(vesc bldc_interface.c bldc_interface_uart.c buffer.c crc.c packet.c datatypes.h)

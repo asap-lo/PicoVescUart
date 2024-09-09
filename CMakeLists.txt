@@ -14,14 +14,19 @@ pico_sdk_init()
 # rest of your project
 
 set( DPICO_SDK_PATH /home/jack/PicoVescUart/pico-sdk )
+add_subdirectory(vesc)
 
 add_executable(pico_vesc_uart
 	pico_vesc_uart.c
 )
 
-# Add pico_stdlib library which aggregates commonly used features
-target_link_libraries(pico_vesc_uart pico_stdlib)
+target_include_directories(pico_vesc_uart PUBLIC
+                          "${PROJECT_BINARY_DIR}"
+                          "${PROJECT_SOURCE_DIR}/vesc"
+                          )
 
+# Add pico_stdlib library which aggregates commonly used features
+target_link_libraries(pico_vesc_uart pico_stdlib vesc)
 # create map/bin/hex/uf2 file in addition to ELF.
 pico_add_extra_outputs(pico_vesc_uart)
 

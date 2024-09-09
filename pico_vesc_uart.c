@@ -6,6 +6,8 @@
 #include "hardware/uart.h"
 #include "vesc/bldc_interface_uart.h"
 #include "vesc/bldc_interface.h"
+#include <string.h>
+#include <stdio.h>
 
 #define UART_ID uart1
 #define BAUD_RATE 115200
@@ -32,7 +34,7 @@ static void send_packet(unsigned char *data, unsigned int len) {
 	memcpy(buffer, data, len);
 
 	// Send the data over UART
-	uart_write_blocking(UART_ID, *buffer, len);
+	uart_write_blocking(UART_ID, buffer, len);
 
 }
 
@@ -74,7 +76,5 @@ int main() {
 	comm_uart_init();
 	bldc_interface_get_values();
 	read_packet();
-
-
     
 }
