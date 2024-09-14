@@ -1,32 +1,48 @@
-CMake_minimum_required(VERSION 3.13...3.27)
+# Generated Cmake Pico project file
 
-set( CMAKE_EXPORT_COMPILE_COMMANDS ON )
+cmake_minimum_required(VERSION 3.13)
 
-# initialize pico-sdk from submodule
-# note: this must happen before project()
-include(pico-sdk/pico_sdk_init.cmake)
+set(CMAKE_C_STANDARD 11)
+set(CMAKE_CXX_STANDARD 17)
 
-project(my_project)
+# Initialise pico_sdk from installed location
+# (note this can come from environment, CMake cache etc)
+set(PICO_SDK_PATH "${CMAKE_CURRENT_LIST_DIR}/pico-sdk")
 
-# initialize the Raspberry Pi Pico SDK
+set(PICO_BOARD pico CACHE STRING "Board type")
+
+# Pull in Raspberry Pi Pico SDK (must be before project)
+include(pico_sdk_import.cmake)
+
+if (PICO_SDK_VERSION_STRING VERSION_LESS "1.4.0")
+  message(FATAL_ERROR "Raspberry Pi Pico SDK version 1.4.0 (or later) required. Your version is ${PICO_SDK_VERSION_STRING}")
+endif()
+
+project(PicoVescUart C CXX ASM)
+
+# Initialise the Raspberry Pi Pico SDK
 pico_sdk_init()
 
-# rest of your project
+# Add executable. Default name is the project name, version 0.1
+add_executable(PicoVescUart PicoVescUart.c )
 
-set( DPICO_SDK_PATH /home/jack/PicoVescUart/pico-sdk )
-add_subdirectory(vesc)
+pico_set_program_name(PicoVescUart "PicoVescUart")
+pico_set_program_version(PicoVescUart "0.1")
 
-add_executable(pico_vesc_uart
-	pico_vesc_uart.c
+pico_enable_stdio_uart(PicoVescUart 1)
+pico_enable_stdio_usb(PicoVescUart 0)
+
+# Add the standard include files to the build
+target_include_directories(PicoVescUart PRIVATE
+  ${CMAKE_CURRENT_LIST_DIR}
+  ${CMAKE_CURRENT_LIST_DIR}/.. # for our common lwipopts or any other standard includes, if required
+  ${CMAKE_CURRENT_LIST_DIR}/vesc
 )
 
-target_include_directories(pico_vesc_uart PUBLIC
-                          "${PROJECT_BINARY_DIR}"
-                          "${PROJECT_SOURCE_DIR}/vesc"
-                          )
+# Add the standard library and vesc library to the build
+target_link_libraries(PicoVescUart
+        vesc
+        pico_stdlib)
 
-# Add pico_stdlib library which aggregates commonly used features
-target_link_libraries(pico_vesc_uart pico_stdlib vesc)
-# create map/bin/hex/uf2 file in addition to ELF.
-pico_add_extra_outputs(pico_vesc_uart)
+pico_add_extra_outputs(PicoVescUart)
 

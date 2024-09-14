@@ -9,11 +9,11 @@
 #include <string.h>
 #include <stdio.h>
 
-#define UART_ID uart1
-#define BAUD_RATE 115200
-#define DATA_BITS 8
-#define STOP_BITS 1
-#define PARITY    UART_PARITY_NONE
+#define UART_ID 	uart1
+#define BAUD_RATE 	115200
+#define DATA_BITS 	8
+#define STOP_BITS 	1
+#define PARITY    	UART_PARITY_NONE
 
 // We are using pins 0 and 1, but see the GPIO function select table in the
 // datasheet for information on which other pins can be used.
@@ -72,9 +72,12 @@ void read_packet(void) {
 }
 
 int main() {
+	printf("HELLO THERE!");
     // Set up our UART with a basic baud rate.
 	comm_uart_init();
+	printf("comm_uart_init ran");
 	bldc_interface_get_values();
+	printf("bldc_interface_get_values started");
 	read_packet();
     
 }
