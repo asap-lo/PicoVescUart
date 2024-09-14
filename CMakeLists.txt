@@ -43,8 +43,8 @@ add_executable(PicoVescUart PicoVescUart.c )
 pico_set_program_name(PicoVescUart "PicoVescUart")
 pico_set_program_version(PicoVescUart "0.1")
 
-pico_enable_stdio_uart(PicoVescUart 1)
-pico_enable_stdio_usb(PicoVescUart 0)
+pico_enable_stdio_uart(PicoVescUart 0)
+pico_enable_stdio_usb(PicoVescUart 1)
 
 # Add the standard include files to the build
 target_include_directories(PicoVescUart PRIVATE
@@ -59,6 +59,8 @@ add_subdirectory(vesc)
 # Add the standard library and vesc library to the build
 target_link_libraries(PicoVescUart
         vesc
+        pico_multicore
+        hardware_uart
         pico_stdlib)
 
 pico_add_extra_outputs(PicoVescUart)
