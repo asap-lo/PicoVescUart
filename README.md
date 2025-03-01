@@ -45,10 +45,7 @@ your executable will be built.
 
 Below is a small guide on how to initialize this interface in your own code.
 
-An important part of this interface is the callback function that gets called every
-time a packet is received.
-
-Use the following recipe in some `*.c` file in the repository root:
+Use the following recipes in some `*.c` file in the repository root:
 
 ### Initializing without callback function
 
@@ -75,7 +72,7 @@ Make your callback function like this:
 
 void on_value_received(mc_values *val)
 {
-	current_data_values = *val;
+    current_data_values = *val;
     
     // Handle values here! See struct below.
 }
@@ -84,7 +81,6 @@ int main() {
     comm_uart_init(on_value_received); // pass function as a parameter. 
 
     // Your application main loop/other code here!
-	while(1) {}
 }
 ```
 
