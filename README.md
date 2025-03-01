@@ -87,28 +87,28 @@ int main() {
 <details>
   <summary>mc_values struct from vesc/datatypes.h</summary>
 
-	```c
-	typedef struct {
-		float v_in;
-		float temp_mos;
-		float temp_motor;
-		float current_motor;
-		float current_in;
-		float id;
-		float iq;
-		float rpm;
-		float duty_now;
-		float amp_hours;
-		float amp_hours_charged;
-		float watt_hours;
-		float watt_hours_charged;
-		int tachometer;
-		int tachometer_abs;
-		mc_fault_code fault_code;
-		float pid_pos;
-		uint8_t vesc_id;
-	} mc_values;
-	```
+```c
+typedef struct {
+	float v_in;
+	float temp_mos;
+	float temp_motor;
+	float current_motor;
+	float current_in;
+	float id;
+	float iq;
+	float rpm;
+	float duty_now;
+	float amp_hours;
+	float amp_hours_charged;
+	float watt_hours;
+	float watt_hours_charged;
+	int tachometer;
+	int tachometer_abs;
+	mc_fault_code fault_code;
+	float pid_pos;
+	uint8_t vesc_id;
+} mc_values;
+```
 
 </details>
 
