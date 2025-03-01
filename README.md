@@ -1,7 +1,5 @@
 # PicoVescUart
 
-[_TOC_]
-
 This is an Raspberry Pi Pico specific implementation of the
 [bldc](http://vedder.se/2015/10/communicating-with-the-vesc-using-uart/) interface,
 which is a programmatical interface for the VESC motor controller.
