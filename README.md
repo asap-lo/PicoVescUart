@@ -85,7 +85,7 @@ int main() {
 ```
 
 <details>
-  <summary>`mc_values` struct from `(vesc/datatypes.h)`</summary>
+  <summary>mc_values struct from vesc/datatypes.h</summary>
 
 	```c
 	typedef struct {
