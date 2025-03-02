@@ -6,17 +6,89 @@ which is a programmatical interface for the VESC motor controller.
 
 ## Dev Setup
 
-Here are some platform specific setup instructions:
+### Customizing for your use case.
 
-### Windows (11)
+To use this library, you must first clone the repository locally,
+
+```
+git clone https://github.com/asap-lo/PicoVescUart.git
+```
+
+or pull in as a submodule, if you don't want to store the files in your repository.
+
+```
+git submodule add https://github.com/asap-lo/PicoVescUart.git
+git submodule update --init --recursive
+```
+
+This library is built using CMake, and can be integrated into an existing project or used to create a new project.
+
+### Creating a New Project:
+
+First, you need to edit the CMakeLists.txt file in the repository root.
+
+```cmake
+################################################################
+# Edit the following three lines to fit your specific use case #
+################################################################
+
+# https://github.com/raspberrypi/pico-sdk/blob/ee68c78d0afae2b69c03ae1a72bf5cc267a2d94c/README.md?plain=1#L187-L192
+set(PICO_BOARD pico CACHE STRING "Board type")
+
+# Change `Example` to whatever your project/filename is called,
+# or feel free to leave it as example. Just add what you need.
+project(Example C CXX ASM)
+add_executable(${CMAKE_PROJECT_NAME} ${CMAKE_PROJECT_NAME}.c)
+```
+
+The `PICO_BOARD` line is important if you are using a different board than the standard `pico` board. 
+A list of boards can be found [here](https://github.com/raspberrypi/pico-sdk/blob/ee68c78d0afae2b69c03ae1a72bf5cc267a2d94c/README.md?plain=1#L187-L192)
+(linked above, also).
+
+You do not need to change the `project` or `add_executable` lines if you just want to
+write your code in the `Example.c` file, but if you want a different file name, simply
+change the name `Example` in the `project` line to whatever you want, and it should
+automatically pick up the filename.
+
+### Integrating Into an Existing CMake Project
+
+This is by no means a comprehensive guide. It would be helpful to understand CMake, as
+you may have to figure out some things for yourself. For example, if you already have
+the pico-sdk in your project, you may need to delete the import and init from the
+CMakeLists.txt file in this repository.
+
+Nevertheless, here are some instructions for a very basic project:
+
+1. Remove these lines from the repository-root-level CMakeLists.txt:
+
+	```cmake
+	project(Example C CXX ASM)
+	add_executable(${CMAKE_PROJECT_NAME} ${CMAKE_PROJECT_NAME}.c)
+	```
+
+1. In your project's CMakeLists.txt file, which should contain the `PicoVescUart`
+	directory, add the following line:
+
+	```cmake
+	add_subdirectory(PicoVescUart)
+	```
+
+	YOU MUST PLACE THIS LINE AFTER YOU DEFINE YOUR PROJECT IN A `project()` CALL, AND YOU
+	CALL `add_executable()`
+
+
+
+### Platform Specific Dependencies
+
+#### Windows (11)
 
 TODO
 
-### Linux (Ubuntu)
+#### Linux (Ubuntu)
 
 TODO
 
-### MacOS (Sonoma 14.1.2)
+#### MacOS (Sonoma 14.1.2)
 
 Requires [Homebrew](https://brew.sh)
 
