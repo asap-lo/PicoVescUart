@@ -77,23 +77,38 @@ Nevertheless, here are some instructions for a very basic project:
 	CALL `add_executable()`
 
 
+### Using the Raspberry Pi Pico VS Code Extension
+
+This is the easiest way to deploy your code to the Pico. All you need to do is import
+this folder using the `Import Project` wizard.
+
+Make sure you input the path to the repository root into the `Location` parameter, e.g
+`/home/joe/PicoVescUart`.
+
+![import_window](img/pico_import_wizard.png)
+
 
 ### Platform Specific Dependencies
 
-#### Windows (11)
+#### Windows (10)
 
-TODO
+Download the [Windows installer](https://www.raspberrypi.com/news/raspberry-pi-pico-windows-installer/)
+to get all dependencies needed for the Pico.
 
 #### Linux (Ubuntu)
 
-TODO
+```
+sudo apt update
+sudo apt install cmake python3 build-essential gcc-arm-none-eabi \
+	libnewlib-arm-none-eabi libstdc++-arm-none-eabi-newlib
+```
 
 #### MacOS (Sonoma 14.1.2)
 
 Requires [Homebrew](https://brew.sh)
 
 ```sh
-brew install arm-none-eabi-gcc cmake picotool
+brew install arm-none-eabi-gcc cmake picotool 
 ```
 
 ## Build Instructions
